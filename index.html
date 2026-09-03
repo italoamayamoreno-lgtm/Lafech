@@ -1379,7 +1379,7 @@ function openProd(){
  ['np-img2-pv','np-foto2-btn','<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="vertical-align:-2px;margin-right:4px"><path d="M23 19 C23 19.5 22.5 20 22 20 L2 20 C1.5 20 1 19.5 1 19 L1 8 C1 7.5 1.5 7 2 7 L7 7 L9 4 L15 4 L17 7 L22 7 C22.5 7 23 7.5 23 8 Z"/><circle cx="12" cy="13" r="4"/></svg>Adicional'],
  ['np-img3-pv','np-foto3-btn','<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="vertical-align:-2px;margin-right:4px"><path d="M23 19 C23 19.5 22.5 20 22 20 L2 20 C1.5 20 1 19.5 1 19 L1 8 C1 7.5 1.5 7 2 7 L7 7 L9 4 L15 4 L17 7 L22 7 C22.5 7 23 7.5 23 8 Z"/><circle cx="12" cy="13" r="4"/></svg>Adicional']].forEach(([pvId,btnId,lbl])=>{
   const pv=document.getElementById(pvId);if(pv)pv.style.display='none';
-  const btn=document.getElementById(btnId);if(btn){btn.textContent=lbl;btn.classList.remove('has-img');}
+  const btn=document.getElementById(btnId);if(btn){btn.innerHTML=lbl;btn.classList.remove('has-img');}
 });
 ['np-img-f','np-img2-f','np-img3-f'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('ov-prod').classList.add('open');
@@ -1405,7 +1405,7 @@ function openEdit(id){
     if(btn){btn.textContent='✓ Cargada';btn.classList.add('has-img');}
   }else{
     pv.style.display='none';
-    if(btn){btn.textContent=field==='img'?'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="vertical-align:-2px;margin-right:4px"><path d="M23 19 C23 19.5 22.5 20 22 20 L2 20 C1.5 20 1 19.5 1 19 L1 8 C1 7.5 1.5 7 2 7 L7 7 L9 4 L15 4 L17 7 L22 7 C22.5 7 23 7.5 23 8 Z"/><circle cx="12" cy="13" r="4"/></svg>Principal':'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="vertical-align:-2px;margin-right:4px"><path d="M23 19 C23 19.5 22.5 20 22 20 L2 20 C1.5 20 1 19.5 1 19 L1 8 C1 7.5 1.5 7 2 7 L7 7 L9 4 L15 4 L17 7 L22 7 C22.5 7 23 7.5 23 8 Z"/><circle cx="12" cy="13" r="4"/></svg>Adicional';btn.classList.remove('has-img');}
+    if(btn){btn.innerHTML=field==='img'?'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="vertical-align:-2px;margin-right:4px"><path d="M23 19 C23 19.5 22.5 20 22 20 L2 20 C1.5 20 1 19.5 1 19 L1 8 C1 7.5 1.5 7 2 7 L7 7 L9 4 L15 4 L17 7 L22 7 C22.5 7 23 7.5 23 8 Z"/><circle cx="12" cy="13" r="4"/></svg>Principal':'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="vertical-align:-2px;margin-right:4px"><path d="M23 19 C23 19.5 22.5 20 22 20 L2 20 C1.5 20 1 19.5 1 19 L1 8 C1 7.5 1.5 7 2 7 L7 7 L9 4 L15 4 L17 7 L22 7 C22.5 7 23 7.5 23 8 Z"/><circle cx="12" cy="13" r="4"/></svg>Adicional';btn.classList.remove('has-img');}
   }
 });
 ['ep-img-f','ep-img2-f','ep-img3-f'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
