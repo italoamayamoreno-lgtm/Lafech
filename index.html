@@ -606,7 +606,7 @@ body.role-admin .admin-only-block{display:flex !important}
   <div class="det-top">
     <button class="ibtop" onclick="closeDet()">←</button>
     <span style="font-family:var(--fd);font-size:17px;font-weight:600;color:var(--tx);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" id="det-top-nm"></span>
-    <button class="ibtop" onclick="editFromDet()">✏️</button>
+    <button class="ibtop" onclick="editFromDet()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 3 L21 7 L8 20 L3 21 L4 16 Z"/></svg></button>
     <button class="ibtop" onclick="delFromDet()" style="color:var(--red)">✕</button>
   </div>
   <div class="det-body" id="det-body"></div>
@@ -891,7 +891,7 @@ body.role-admin .admin-only-block{display:flex !important}
   </div>
   <!-- FIX 4: Stock warning banner -->
   <div id="mv-stock-warn" style="display:none;background:var(--red-bg);border:1px solid #F5BABA;border-radius:var(--rs);padding:8px 12px;font-size:12px;color:var(--red);margin-bottom:6px">
-    ⛔ Stock insuficiente. Solo hay <strong id="mv-stock-avail">0</strong> unidades disponibles.
+    Stock insuficiente. Solo hay <strong id="mv-stock-avail">0</strong> unidades disponibles.
   </div>
   <div class="fg">
     <div class="fr"><label>Precio Unit. (S/)</label><input type="number" id="mv-prc"></div>
@@ -1105,7 +1105,7 @@ function renderList(){
         <div class="prod-actions" onclick="event.stopPropagation()">
           <button class="ib" onclick="qMov('${p.id}','entrada')" title="Entrada" style="color:var(--grn)">↓</button>
           <button class="ib" onclick="qMov('${p.id}','salida')" title="Venta" style="color:var(--P)">↑</button>
-          <button class="ib ed" onclick="openEdit('${p.id}')" title="Editar">✏️</button>
+          <button class="ib ed" onclick="openEdit('${p.id}')" title="Editar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 3 L21 7 L8 20 L3 21 L4 16 Z"/></svg></button>
           <button class="ib dl" onclick="confirmDel('${p.id}')" title="Eliminar">✕</button>
         </div>
       </div>`;
@@ -1119,7 +1119,7 @@ function renderList(){
         <div class="prod-actions">
           <button class="ib" onclick="qMov('${p.id}','entrada')" style="color:var(--grn)" title="Entrada">↓</button>
           <button class="ib" onclick="qMov('${p.id}','salida')" style="color:var(--P)" title="Venta">↑</button>
-          <button class="ib ed" onclick="openEdit('${p.id}')">✏️</button>
+          <button class="ib ed" onclick="openEdit('${p.id}')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 3 L21 7 L8 20 L3 21 L4 16 Z"/></svg></button>
           <button class="ib dl" onclick="confirmDel('${p.id}')">✕</button>
         </div>
       </div>
@@ -1159,8 +1159,8 @@ function renderAlerts(){
   const el=document.getElementById('alert-list');
   if(!outs.length&&!lows.length){el.innerHTML='<div class="empty"><div class="empty-ic"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2 L4 8 L4 16 L12 22 L20 16 L20 8 Z"/><path d="M4 8 L12 13 L20 8"/><path d="M12 13 L12 22"/></svg></div><div class="empty-msg">Sin alertas. ¡Todo en orden!</div></div>';return;}
   el.innerHTML=[
-    ...outs.map(p=>`<div class="alert cr"><div class="alert-ico">️</div><div class="alert-body"><div class="alert-nm">AGOTADO — ${p.name}</div><div class="alert-meta">${p.id} · Stock: 0 · Mín: ${p.minStock}</div></div><button class="bsm pri" onclick="qMov('${p.id}','entrada')">Reponer</button></div>`),
-    ...lows.map(p=>`<div class="alert wn"><div class="alert-ico">⬇️</div><div class="alert-body"><div class="alert-nm">Stock bajo — ${p.name}</div><div class="alert-meta">${p.id} · Stock: ${stk(p.id)} · Mín: ${p.minStock}</div></div><button class="bsm" onclick="qMov('${p.id}','entrada')">Reponer</button></div>`)
+    ...outs.map(p=>`<div class="alert cr"><div class="alert-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 L22 20 L2 20 Z"/><path d="M12 9 L12 14"/><circle cx="12" cy="17" r="0.9" fill="currentColor"/></svg></div><div class="alert-body"><div class="alert-nm">AGOTADO — ${p.name}</div><div class="alert-meta">${p.id} · Stock: 0 · Mín: ${p.minStock}</div></div><button class="bsm pri" onclick="qMov('${p.id}','entrada')">Reponer</button></div>`),
+    ...lows.map(p=>`<div class="alert wn"><div class="alert-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 L22 20 L2 20 Z"/><path d="M12 9 L12 14"/><circle cx="12" cy="17" r="0.9" fill="currentColor"/></svg></div><div class="alert-body"><div class="alert-nm">Stock bajo — ${p.name}</div><div class="alert-meta">${p.id} · Stock: ${stk(p.id)} · Mín: ${p.minStock}</div></div><button class="bsm" onclick="qMov('${p.id}','entrada')">Reponer</button></div>`)
   ].join('');
 }
 
@@ -1265,7 +1265,7 @@ function renderFinanzas(){
   document.getElementById('fin-pnl').innerHTML=`
     <div class="fin-row"><div class="fin-lbl">Ingresos por Ventas</div><div class="fin-val pos">${fmtM(ingreso)}</div></div>
     <div class="fin-row"><div class="fin-lbl">Costo de Productos Vendidos</div><div class="fin-val neg">− ${fmtM(costo)}</div></div>
-    <div class="fin-row" style="border-top:2px solid var(--bdr2)"><div class="fin-lbl" style="font-weight:600">✨ Utilidad Bruta</div><div class="fin-val ${utilidad>=0?'pos':'neg'}" style="font-size:20px">${fmtM(utilidad)}</div></div>
+    <div class="fin-row" style="border-top:2px solid var(--bdr2)"><div class="fin-lbl" style="font-weight:600">Utilidad Bruta</div><div class="fin-val ${utilidad>=0?'pos':'neg'}" style="font-size:20px">${fmtM(utilidad)}</div></div>
     <div class="fin-row"><div class="fin-lbl">Compras del Período</div><div class="fin-val">${fmtM(compras)}</div></div>
     <div class="fin-row"><div class="fin-lbl">Margen Bruto</div><div class="fin-val ${margenPct>=30?'pos':'neg'}">${margenPct}%</div></div>`;
 
@@ -1539,7 +1539,7 @@ function saveMov(){
 
   // FIX 4: Hard block on insufficient stock — no confirm()
   if((tp==='salida'||tp==='ajuste-')&&stk(pid)<qty){
-    alert(`⛔ No se puede registrar la venta.\nStock disponible: ${stk(pid)} u.\nCantidad solicitada: ${qty} u.`);
+    alert(`No se puede registrar la venta.\nStock disponible: ${stk(pid)} u.\nCantidad solicitada: ${qty} u.`);
     return;
   }
 
@@ -1599,7 +1599,7 @@ function confirmDel(id){
   delP(id);
 }
 function confirmClear(){
-  if(!confirm('️ ¿Eliminar TODOS los productos y movimientos?'))return;
+  if(!confirm('¿Eliminar TODOS los productos y movimientos?'))return;
   if(!confirm('Segunda confirmación. ¿Estás seguro?'))return;
   if(db){db.ref('products').remove();db.ref('movements').remove();}
   else{D.products=[];D.movements=[];svLocal();renderAll();}
@@ -2596,7 +2596,7 @@ function renderCRMList(){
     return`<div class="prod-row" style="cursor:pointer" onclick="openClientDet('${cl.id}','${cl.doc||cl.phone||''}','${encodeURIComponent(cl.name)}')">
       <div class="prod-thumb" style="background:${tagBg};color:${tagFg};font-weight:700;font-size:16px;border:none">${cl.name[0].toUpperCase()}</div>
       <div class="prod-info">
-        <div class="prod-name">${cl.name}${cl.tag?` <span style="padding:2px 7px;border-radius:8px;font-size:9px;font-weight:600;background:${tagBg};color:${tagFg};vertical-align:middle">${tagLabel}${isManual?' ✏️':''}</span>`:''}</div>
+        <div class="prod-name">${cl.name}${cl.tag?` <span style="padding:2px 7px;border-radius:8px;font-size:9px;font-weight:600;background:${tagBg};color:${tagFg};vertical-align:middle">${tagLabel}${isManual?' <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 3 L21 7 L8 20 L3 21 L4 16 Z"/></svg>':''}</span>`:''}</div>
         <div class="prod-meta">${docStr}${cl.email?' · '+cl.email:''}</div>
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0">
@@ -2704,7 +2704,7 @@ function updatePromoPreview(){
   const scope=document.getElementById('pr-scope').value;
   lbl.textContent=type==='pct'?'Descuento (%)':'Descuento (S/)';
   catRow.style.display=scope==='cat'?'block':'none';
-  if(val>0){prev.textContent=`✨ Se aplicará: ${type==='pct'?val+'% de descuento':'S/ '+val+' de descuento'}`;prev.style.display='block';}
+  if(val>0){prev.textContent=`Se aplicará: ${type==='pct'?val+'% de descuento':'S/ '+val+' de descuento'}`;prev.style.display='block';}
   else{prev.style.display='none';}
 }
 
@@ -3117,7 +3117,7 @@ window.addEventListener('load',()=>{
   <div class="det-top">
     <button class="ibtop" onclick="closeClientDet()">←</button>
     <span style="font-family:var(--fd);font-size:17px;font-weight:600;color:var(--tx);flex:1" id="client-det-title">Cliente</span>
-    <button class="ibtop" onclick="editClientFromDet()">✏️</button>
+    <button class="ibtop" onclick="editClientFromDet()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 3 L21 7 L8 20 L3 21 L4 16 Z"/></svg></button>
     <button class="ibtop" onclick="delClientFromDet()" style="color:var(--red)">✕</button>
   </div>
   <div class="det-body" id="client-det-body"></div>
