@@ -101,7 +101,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:var(--fb)
 .kpi-sub{font-size:10px;color:var(--tx3);margin-top:3px}
 
 /* ── SEC HEADER ─────────────────────────────────── */
-.sh{display:flex;align-items:center;justify-content:space-between}
+.sh{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 12px}
 .st{font-family:var(--fd);font-size:20px;font-weight:600;color:var(--tx)}
 .bsm{padding:7px 13px;border-radius:var(--rs);border:1px solid var(--bdr2);background:var(--surf);font-family:var(--fb);font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:5px;color:var(--tx);white-space:nowrap;transition:all .12s}
 .bsm:hover{background:var(--surf2)}
@@ -112,7 +112,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:var(--fb)
 .srch{display:flex;align-items:center;gap:8px;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r);padding:9px 13px}
 .srch input{flex:1;border:none;background:transparent;font-family:var(--fb);font-size:13px;color:var(--tx);outline:none}
 .srch input::placeholder{color:var(--tx3)}
-.pills{display:flex;gap:5px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 0 6px;min-height:36px}
+.pills{display:flex;gap:5px;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 0 6px;min-height:36px;mask-image:linear-gradient(to right,black calc(100% - 24px),transparent 100%);-webkit-mask-image:linear-gradient(to right,black calc(100% - 24px),transparent 100%)}
 .pills::-webkit-scrollbar{display:none}
 .pill{padding:4px 12px;border-radius:20px;border:1px solid var(--bdr);background:transparent;font-size:11px;cursor:pointer;color:var(--tx2);white-space:nowrap;font-family:var(--fb);flex-shrink:0;transition:all .12s}
 .pill.on{background:var(--PL);border-color:var(--PM);color:var(--P);font-weight:500}
@@ -380,7 +380,7 @@ body.role-admin .admin-only-block{display:flex !important}
 .role-badge.admin{background:var(--PL);color:var(--P)}
 .role-badge.vendedor{background:var(--grn-bg);color:var(--grn)}
 @media(max-width:899px){
-  #btn-xls,#btn-pdf,#btn-exp,#btn-clr,#btn-mov,#btn-prd{display:none !important}
+  #hdr-btn-xls,#hdr-btn-pdf,#hdr-btn-prd,#btn-clr,#btn-mov,#btn-prd{display:none !important}
   .pay-bank-card .fg{grid-template-columns:1fr !important}
   .main,#page-pagos{overflow-x:hidden;max-width:100vw}
   .topbar{padding:0 12px;gap:6px}
@@ -521,10 +521,10 @@ body.role-admin .admin-only-block{display:flex !important}
     <div class="kpi-grid" id="kpi-grid"></div>
     <div class="sh">
       <div class="st">Catálogo</div>
-      <div style="display:flex;gap:6px">
-        <button class="bsm" onclick="exportXLS()">Descargar inventario</button>
-        <button class="bsm" onclick="exportPDF()">Descargar catálogo</button>
-        <button class="bsm pri" onclick="openProd()">+ Producto</button>
+      <div class="sh-actions" style="display:flex;gap:6px">
+        <button class="bsm" id="hdr-btn-xls" onclick="exportXLS()">Descargar inventario</button>
+        <button class="bsm" id="hdr-btn-pdf" onclick="exportPDF()">Descargar catálogo</button>
+        <button class="bsm pri" id="hdr-btn-prd" onclick="openProd()">+ Producto</button>
       </div>
     </div>
     <div class="srch"><span style="color:var(--tx3)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21 L16.65 16.65"/></svg></span><input type="text" placeholder="Buscar..." oninput="searchP(this.value)" id="srch-inp"></div>
