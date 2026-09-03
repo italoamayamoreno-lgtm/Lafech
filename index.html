@@ -45,10 +45,20 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:var(--fb)
 .logo-gem{font-size:16px}
 .topbar-nav{display:flex;gap:1px;margin-left:12px}
 @media(max-width:899px){.topbar-nav{display:none}}
+@media(min-width:900px){.topbar-nav{display:none}}
 .tnav{padding:5px 12px;border-radius:var(--rs);font-size:13px;color:var(--tx2);cursor:pointer;transition:all .12s;border:1px solid transparent;display:flex;align-items:center;gap:4px;font-family:var(--fb)}
 .tnav:hover{background:var(--surf2)}
 .tnav.active{background:var(--PL);color:var(--P);font-weight:500;border-color:var(--R)}
 .tnav .nbadge{background:var(--P);color:#fff;font-size:9px;padding:1px 5px;border-radius:8px;font-weight:600}
+.sidebar{display:none}
+@media(min-width:900px){
+  .sidebar{display:flex;flex-direction:column;width:180px;flex-shrink:0;border-right:1px solid var(--bdr);background:var(--surf);padding:18px 10px;gap:2px;overflow-y:auto}
+}
+.sbnav{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--rs);font-size:13px;color:var(--tx2);cursor:pointer;transition:background .12s;font-family:var(--fb);border-left:2px solid transparent}
+.sbnav:hover{background:var(--surf2)}
+.sbnav.active{background:var(--PL);color:var(--P);font-weight:500;border-left-color:var(--P)}
+.sbnav svg{flex-shrink:0}
+.sbnav .nbadge{background:var(--P);color:#fff;font-size:9px;padding:1px 5px;border-radius:8px;font-weight:600;margin-left:auto}
 .tr{margin-left:auto;display:flex;align-items:center;gap:6px}
 .sync{width:7px;height:7px;border-radius:50%;background:var(--grn);flex-shrink:0}
 .sync.sy{background:var(--amb);animation:pu 1s infinite}
@@ -514,6 +524,16 @@ body.role-admin .admin-only-block{display:flex !important}
   </div>
 </div>
 <div class="workspace">
+<div class="sidebar" id="sidebar-nav">
+  <div class="sbnav active" id="sb-catalogo" onclick="showPage('catalogo')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 L4 8 L4 16 L12 22 L20 16 L20 8 Z"/><path d="M4 8 L12 13 L20 8"/><path d="M12 13 L12 22"/></svg>Catálogo</div>
+  <div class="sbnav" id="sb-movimientos" onclick="showPage('movimientos')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 4 L3 8 L7 12"/><path d="M3 8 L21 8"/><path d="M17 12 L21 16 L17 20"/><path d="M21 16 L3 16"/></svg>Movimientos<span class="nbadge" id="nb-mov-sb">0</span></div>
+  <div class="sbnav admin-only-block" id="sb-alertas" onclick="showPage('alertas')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 L22 20 L2 20 Z"/><path d="M12 9 L12 14"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></svg>Alertas<span class="nbadge" id="nb-alrt-sb" style="display:none">0</span></div>
+  <div class="sbnav admin-only-block" id="sb-dashboard" onclick="showPage('dashboard')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="10" width="8" height="11" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/></svg>Dashboard</div>
+  <div class="sbnav admin-only-block" id="sb-finanzas" onclick="showPage('finanzas')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21 L3 3"/><path d="M3 21 L21 21"/><path d="M7 17 L7 11"/><path d="M12 17 L12 7"/><path d="M17 17 L17 14"/></svg>Finanzas</div>
+  <div class="sbnav admin-only-block" id="sb-pagos" onclick="showPage('pagos')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10 L22 10"/></svg>Pagos</div>
+  <div class="sbnav admin-only-block" id="sb-crm" onclick="showPage('crm')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20 C2.5 15.5 5.5 13 9 13 C12.5 13 15.5 15.5 15.5 20"/><path d="M16 8.5 C17.2 8.2 18.2 7.2 18.2 5.8 C18.2 4.4 17.2 3.3 16 3.1"/><path d="M17 13.3 C19.6 13.9 21.5 16.2 21.5 20"/></svg>Clientes</div>
+  <div class="sbnav admin-only-block" id="sb-promos" onclick="showPage('promos')"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 12 L12 20 L2 10 L2 2 L10 2 Z"/><circle cx="6.5" cy="6.5" r="1.4"/></svg>Promociones</div>
+</div>
 <div class="main" id="main-area">
 
   <!-- CATALOGO -->
@@ -1168,8 +1188,9 @@ function renderBadges(){
   const low=D.products.filter(p=>stk(p.id)<p.minStock).length;
   const ba=document.getElementById('nb-alrt');if(ba){ba.textContent=low;ba.style.display=low?'':'none';}
   const bam=document.getElementById('nb-alrt-m');if(bam){bam.textContent=low;bam.style.display=low?'':'none';}
+  const basb=document.getElementById('nb-alrt-sb');if(basb){basb.textContent=low;basb.style.display=low?'':'none';}
   const bm=document.getElementById('nb-mov');if(bm)bm.textContent=D.movements.length;
-  const ai=document.getElementById('alrt-ic');if(ai)ai.textContent=low>0?'':'';
+  const bmsb=document.getElementById('nb-mov-sb');if(bmsb)bmsb.textContent=D.movements.length;
 }
 
 // ════════════════════════════════════════════════
@@ -1354,6 +1375,7 @@ function showPage(name){
     document.getElementById('page-'+p).classList.toggle('on',p===name);
     const t=document.getElementById('tn-'+p);if(t)t.classList.toggle('active',p===name);
     const b=document.getElementById('bn-'+p);if(b)b.classList.toggle('on',p===name);
+    const s=document.getElementById('sb-'+p);if(s)s.classList.toggle('active',p===name);
   });
   curPage=name;
   if(name==='movimientos')renderMovs();
@@ -2920,16 +2942,16 @@ function showDesktopBtns(){
 }
 
 function applyAdminView(){
-  const showIds=['tn-dashboard','tn-finanzas','tn-pagos','tn-alertas','tn-crm','tn-promos','bn-dashboard','bn-finanzas','bn-alertas','bn-pagos','bn-crm','bn-promos','dl-wrap','btn-clr','btn-mov','btn-prd'];
+  const showIds=['tn-dashboard','tn-finanzas','tn-pagos','tn-alertas','tn-crm','tn-promos','bn-dashboard','bn-finanzas','bn-alertas','bn-pagos','bn-crm','bn-promos','sb-dashboard','sb-finanzas','sb-pagos','sb-alertas','sb-crm','sb-promos','dl-wrap','btn-clr','btn-mov','btn-prd'];
   showIds.forEach(id=>{const el=document.getElementById(id);if(el)el.style.removeProperty('display');});
   document.querySelectorAll('.admin-only-block').forEach(el=>{el.style.display='';});
   document.querySelectorAll('.admin-only').forEach(el=>{el.style.display='flex';});
 }
 
 function applyVendedorRestrictions(){
-  const hideIds=['tn-dashboard','tn-finanzas','tn-alertas','bn-dashboard','bn-finanzas','bn-alertas','dl-wrap','btn-clr','btn-mov','btn-prd'];
+  const hideIds=['tn-dashboard','tn-finanzas','tn-alertas','bn-dashboard','bn-finanzas','bn-alertas','sb-dashboard','sb-finanzas','sb-alertas','dl-wrap','btn-clr','btn-mov','btn-prd'];
   hideIds.forEach(id=>{const el=document.getElementById(id);if(el)el.style.display='none';});
-  const pagoIds=['tn-pagos','bn-pagos'];pagoIds.forEach(id=>{const el=document.getElementById(id);if(el)el.style.removeProperty('display');});
+  const pagoIds=['tn-pagos','bn-pagos','sb-pagos'];pagoIds.forEach(id=>{const el=document.getElementById(id);if(el)el.style.removeProperty('display');});
   const dlWrap=document.getElementById('dl-wrap');
   if(dlWrap){dlWrap.style.display='flex';const menu=document.getElementById('dl-menu');if(menu){menu.innerHTML=`
     <button onclick="exportPDF();toggleDL()" style="width:100%;text-align:left;padding:10px 16px;background:none;border:none;font-family:var(--fb);font-size:13px;cursor:pointer;display:flex;align-items:center;gap:8px;color:var(--tx)">Descargar catálogo</button>
