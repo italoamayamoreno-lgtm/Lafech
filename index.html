@@ -195,6 +195,9 @@ html,body{height:100%;overflow:hidden;background:var(--bg);font-family:var(--fb)
 .month-sel select{flex:1;padding:7px 10px;border:1px solid var(--bdr2);border-radius:var(--rs);font-family:var(--fb);font-size:12px;color:var(--tx);background:var(--surf2);outline:none}
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
 .stat-box{background:var(--surf2);border-radius:var(--r);padding:12px;text-align:center}
+.donut-wrap{display:flex;align-items:center;gap:18px;padding:6px 0 14px}
+.donut-legend{display:flex;flex-direction:column;gap:7px;font-size:11.5px;color:var(--tx2)}
+.donut-legend-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;flex-shrink:0}
 .stat-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--tx3);margin-bottom:4px}
 .stat-val{font-family:var(--fd);font-size:20px;font-weight:600;color:var(--tx)}
 .stat-val.p{color:var(--P)}
@@ -545,9 +548,11 @@ body.role-admin .admin-only-block{display:flex !important}
   <!-- DASHBOARD -->
   <div class="page" id="page-dashboard">
     <div class="sh"><div class="st">Dashboard</div></div>
+    <div class="stat-grid" id="dash-stats"></div>
     <div class="dash-grid">
       <div class="dash-card">
         <div class="dash-card-title">Ventas por Categoría</div>
+        <div id="dash-donut"></div>
         <div id="dash-cat"></div>
       </div>
       <div class="dash-card">
@@ -1174,7 +1179,26 @@ function renderDash(){
   const catSales={};
   D.movements.filter(m=>m.type==='salida').forEach(m=>{const p=gP(m.prodId);if(!p)return;const c=p.cat;catSales[c]=(catSales[c]||0)+m.qty*(m.price||0);});
   const maxCS=Math.max(...Object.values(catSales),1);
-  document.getElementById('dash-cat').innerHTML=Object.entries(catSales).sort((a,b)=>b[1]-a[1]).slice(0,6).map(([c,v])=>`
+
+  const donutColors=['#6D2E46','#C9847A','#D8C1A0','#B8AAA0','#8A7580','#E4D9CD'];
+  const catEntries=Object.entries(catSales).sort((a,b)=>b[1]-a[1]);
+  const catTotal=catEntries.reduce((a,[,v])=>a+v,0);
+  const donutEl=document.getElementById('dash-donut');
+  if(catTotal>0){
+    let offset=0;
+    const circles=catEntries.map(([c,v],i)=>{
+      const pct=v/catTotal*100;
+      const seg=`<circle cx="21" cy="21" r="15.9" fill="transparent" stroke="${donutColors[i%donutColors.length]}" stroke-width="6" stroke-dasharray="${pct} ${100-pct}" stroke-dashoffset="${100-offset+25}"/>`;
+      offset+=pct;
+      return seg;
+    }).join('');
+    const legend=catEntries.map(([c,v],i)=>`<div><span class="donut-legend-dot" style="background:${donutColors[i%donutColors.length]}"></span>${c} · ${Math.round(v/catTotal*100)}%</div>`).join('');
+    donutEl.innerHTML=`<div class="donut-wrap"><svg width="100" height="100" viewBox="0 0 42 42"><circle cx="21" cy="21" r="15.9" fill="transparent" stroke="var(--surf2)" stroke-width="6"/>${circles}</svg><div class="donut-legend">${legend}</div></div>`;
+  } else {
+    donutEl.innerHTML='';
+  }
+
+  document.getElementById('dash-cat').innerHTML=catEntries.slice(0,6).map(([c,v])=>`
     <div class="bar-row"><div class="bar-label">${c}</div><div class="bar-wrap"><div class="bar-fill" style="width:${Math.round(v/maxCS*100)}%"></div></div><div class="bar-val">${fmtM(v)}</div></div>`).join('')||'<div class="empty" style="padding:20px"><div class="empty-ic"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2 L4 8 L4 16 L12 22 L20 16 L20 8 Z"/><path d="M4 8 L12 13 L20 8"/><path d="M12 13 L12 22"/></svg></div><div class="empty-msg">Sin ventas aún</div></div>';
 
   const prodSales={};
@@ -1196,6 +1220,17 @@ function renderDash(){
     <div class="fin-row"><div class="fin-lbl">Valor a Costo</div><div class="fin-val pri">${fmtM(valC)}</div></div>
     <div class="fin-row"><div class="fin-lbl">Valor a Precio Venta</div><div class="fin-val pos">${fmtM(valV)}</div></div>
     <div class="fin-row"><div class="fin-lbl">Ganancia Potencial</div><div class="fin-val pos">${fmtM(valV-valC)}</div></div>`;
+
+  const nowMo=new Date().toISOString().slice(0,7);
+  const moSalesRev=D.movements.filter(m=>m.type==='salida'&&m.date&&m.date.startsWith(nowMo)).reduce((a,m)=>a+m.qty*(m.price||0),0);
+  const lowStockCount=D.products.filter(p=>stk(p.id)<p.minStock).length;
+  const today=new Date().toISOString().slice(0,10);
+  const salesToday=D.movements.filter(m=>m.type==='salida'&&m.date===today).length;
+  document.getElementById('dash-stats').innerHTML=`
+    <div class="stat-box"><div class="stat-lbl">Productos activos</div><div class="stat-val">${tot}</div></div>
+    <div class="stat-box"><div class="stat-lbl">Ventas del mes</div><div class="stat-val p">${fmtM(moSalesRev)}</div></div>
+    <div class="stat-box"><div class="stat-lbl">Stock bajo</div><div class="stat-val ${lowStockCount>0?'':'g'}">${lowStockCount}</div></div>
+    <div class="stat-box"><div class="stat-lbl">Ventas hoy</div><div class="stat-val">${salesToday}</div></div>`;
 }
 
 // ════════════════════════════════════════════════
